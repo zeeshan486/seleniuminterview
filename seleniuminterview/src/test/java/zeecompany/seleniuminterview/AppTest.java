@@ -1,20 +1,37 @@
 package zeecompany.seleniuminterview;
 
-import static org.junit.Assert.assertTrue;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
-/**
- * Unit test for simple App.
- */
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class AppTest 
 {
-    /**
-     * Rigorous Test :-)
-     */
+   
     @Test
-    public void shouldAnswerWithTrue()
+    public void test1()
     {
-        assertTrue( true );
+    	 WebDriverManager.firefoxdriver().setup();
+         WebDriver driver  = new FirefoxDriver();
+         driver.get("https://www.seleniumeasy.com/test/input-form-demo.html");
+         WebElement element = driver.findElement(By.name("first_name"));
+         element.sendKeys("jhone");
+         System.out.println(element.getAttribute("value"));
+         WebElement text = driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/section/form/fieldset/div[7]/div/div/select"));
+         Select dropdown  = new Select(text);
+         try {
+       	 dropdown.selectByValue(" ");
+         }
+         catch(Exception e){
+       	  System.out.println(e.getMessage());
+         }
+         driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+         //driver.close();
     }
 }
